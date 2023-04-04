@@ -62,7 +62,74 @@ interview-app
 
 The backend is built using NestJS, and it consists of two main modules: List Module and Todo Module. Both modules interface with a MySQL database utilizing TypeORM, and there is a custom logging service for managing error logs.
 
-For a detailed description of the backend modules and their functionality, please refer to the "Backend (NestJS)" section in the original documentation above.
+### App Module
+
+The `app.module.ts` is the primary module of the NestJS application. It imports the necessary modules and sets up a connection to the MySQL database using TypeORM.
+
+```
+@Module({
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(
+        __dirname,
+        '../..',
+        'interview-app/dist/interview-app'
+      ),
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'hacknik123',
+      database: 'interview_app_db',
+      entities: [List, Todo],
+      synchronize: true,
+    }),
+    ListModule,
+    TodoModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService, LoggingService],
+})
+export class AppModule {}
+
+```
+
+### List Module
+
+The List Module handles the CRUD operations for Lists. The following files are part of this module:
+
+- `list.controller.ts`: Contains the endpoints for CRUD operations on lists
+- `list.service.ts`: Handles the business logic for CRUD operations on lists using the TypeORM repository
+- `list.entity.ts`: Defines the List entity and its properties
+
+
+### Todo Module
+
+The Todo Module handles the CRUD operations for Todo items. The following files are part of this module:
+
+- `todo.controller.ts`: Contains the endpoints for CRUD operations on todo items
+- `todo.service.ts`: Handles the business logic for CRUD operations on todo items using the TypeORM repository
+- `todo.entity.ts`: Defines the Todo entity and its properties
+
+
+### Logging Service
+
+The `logging.service.ts` is a simple service for handling error logging and sending errors to the frontend. It utilizes an `EventEmitter` to handle error events.
+
+```
+@Injectable()
+export class LoggingService {
+  errorEvent: EventEmitter = new EventEmitter();
+
+  logError(message: string, error: any) {
+    console.error(message, error);
+    this.errorEvent.emit('error', message);
+  }
+}
+
+```
 
 ## Frontend (Angular v15)
 
@@ -116,7 +183,7 @@ The application will be accessible at `localhost:3000`.
 
 ## Conclusion
 
-This documentation provides a detailed and professional summary of the Eflyn Interview Project, a comprehensive task management application built using Angular v15 for the frontend and NestJS for the backend. The documentation covers the project structure, frontend components, services, modules, routing, and backend setup while providing code snippets and explanations that help in understanding the functionality of the application. With this documentation, developers can effectively reference and build the frontend, while also understanding the full functionality of the entire program.
+This documentation provides a detailed and professional summary of the Eflyn Interview Project, a comprehensive task management application built using Angular v15 for the frontend and NestJS for the backend. The documentation covers the project structure, frontend components, services, modules, routing, and backend setup while providing code snippets and explanations that help in understanding the functionality of the application.
 
 ## Stay in touch
 
