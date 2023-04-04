@@ -1,0 +1,61 @@
+<div class="card-container">
+<!-- To-Do List -->
+  <mat-card class="todo-card">
+      <mat-card-header>
+        <mat-card-title>To-Do List</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let todo of todos">
+            <mat-checkbox (change)="onTodoChange(todo)">{{ todo.title }}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Create a New To-Do -->
+    <mat-card class="new-todo-card">
+      <mat-card-header>
+        <mat-card-title>Add To-Do</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="new-todo-form">
+          <mat-form-field>
+            <mat-label>Write Stuff To Do</mat-label>
+          <input matInput [formControl]="newTodoControl" />
+        </mat-form-field>
+          <button class="add_button" mat-raised-button color="primary" [disabled]="!newTodoControl.valid" (click)="addTodo()">
+            Add To-Do +
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <!-- Completed Tasks -->
+    <mat-card class="completed-card">
+      <mat-card-header>
+        <mat-card-title>Completed 🎉</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item id="card_item" *ngFor="let todo of completedTodos" [class.selected]="todo === selectedTodo" (click)="onCompletedItemClick(todo)">
+            <s>{{ todo.title }}</s>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="delete_button" mat-raised-button color="warn" [disabled]="!selectedTodo" (click)="deleteSelectedTodo()">Delete</button>
+        <button class="undo_button" mat-raised-button color="primary" [disabled]="!selectedTodo" (click)="undoCompletedTodo()">Undo</button>
+      </mat-card-actions>
+      <div class="spinner-container">
+        <mat-progress-spinner mode="determinate" [value]="completedPercentage"></mat-progress-spinner>
+      </div>
+      </mat-card>
+  <app-loading *ngIf="showGif"></app-loading>
+
+  <app-confetti-canvas></app-confetti-canvas>
+
+
+
+</div>
+  

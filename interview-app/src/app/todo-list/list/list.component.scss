@@ -1,0 +1,100 @@
+// The container for all cards
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+// Styling for todo-card, new-todo-card, and completed-card
+.todo-card,
+.new-todo-card,
+.completed-card {
+  box-sizing: border-box;
+  width: 50%;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.completed-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+  // Smooth fade-in animation
+  animation: fadeIn 0.3s ease-in;
+
+  // Flex container for center alignment
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Fade-in animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Styling for new-todo-form
+.new-todo-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  mat-form-field {
+    margin-bottom: 16px;
+  }
+
+  button {
+    align-self: flex-end;
+    margin-top: 8px;
+  }
+}
+
+.selected {
+  background-color: lightblue;
+}
+
+// Hover effect for card items
+#card_item:hover {
+  background-color: rgb(227, 230, 173);
+  cursor: pointer !important;
+}
+
+.add_button {
+  position: absolute;
+  display: flex;
+  right: 43%;
+  top: 68%;
+}
+
+.delete_button {
+  margin-right: 10px;
+}
+
+// Style for the outermost app container
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: linear-gradient(to right, #47f8a5, #6ae9ff); // Complementary background gradient
+}
+
+
